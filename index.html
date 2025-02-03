@@ -15,7 +15,7 @@
         flex-direction: column;
       }
 
-      /* Controls container - dropdown menu */
+      
       .controls {
         width: 100%;
         height: 50px;
@@ -27,14 +27,14 @@
         z-index: 1000; 
       }
 
-      /* Map container */
+    
       #map {
         position: relative;
         width: 100%;
         flex-grow: 1; 
       }
 
-      /* Coordinates Box: Upper-left inside the map */
+      
       .coordinates-box {
         position: absolute;
         top: 10px;
@@ -61,7 +61,7 @@
   </head>
   <body>
 
-    <!-- Controls (Dropdown Menu) -->
+
     <div class="controls">
       <div class="col-auto">
         <span class="input-group">
@@ -77,20 +77,20 @@
       </div>
     </div>
 
-    <!-- Map container -->
+ 
     <div id="map"></div>
 
-    <!-- Coordinates Box inside the map -->
+
     <div id="coordinates-box" class="coordinates-box">
       <h4>Feature Coordinates</h4>
       <div id="coordinates-display">No feature drawn yet.</div>
     </div>
 
-    <!-- Load OpenLayers from CDN -->
+
     <script src="https://unpkg.com/ol@latest/dist/ol.js"></script>
-    <!-- Your custom JavaScript -->
+
     <script type="text/javascript">
-      // Create the OpenLayers Map
+     
       const rasterLayer = new ol.layer.Tile({
         source: new ol.source.OSM(),
       });
@@ -109,7 +109,7 @@
         }),
       });
 
-      // Handle drawing interactions
+
       const typeSelect = document.getElementById('type');
       const coordinatesDisplay = document.getElementById('coordinates-display');
       let draw;
@@ -152,7 +152,7 @@
       typeSelect.onchange = addInteraction;
       addInteraction();
 
-      // Handle Drag and Drop for GeoJSON
+
       const dragAndDropInteraction = new ol.interaction.DragAndDrop({
         formatConstructors: [ol.format.GeoJSON],
       });
@@ -174,7 +174,7 @@
 
       map.addInteraction(dragAndDropInteraction);
 
-      // Popup for feature information
+   
       const popupContainer = document.createElement('div');
       popupContainer.className = 'ol-popup';
 
@@ -196,7 +196,7 @@
 
           if (feature) {
             const properties = feature.getProperties();
-            let content = '<b>Información del elemento:</b><br>';
+            let content = '<b>Element information:</b><br>';
             Object.keys(properties).forEach(key => {
               if (key !== 'geometry') {
                 content += `<b>${key}:</b> ${properties[key]}<br>`;
