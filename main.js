@@ -1,15 +1,14 @@
-import './style.css'; 
-import { Map, View } from 'ol';
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
-import { Draw } from 'ol/interaction';
-import { Point, LineString, Polygon } from 'ol/geom'; 
-import { DragAndDrop } from 'ol/interaction';
-import GeoJSON from 'ol/format/GeoJSON';
-import { transformExtent, get as getProjection } from 'ol/proj';
-import Overlay from 'ol/Overlay';
+import './style.css';  
+import { Map, View } from 'https://unpkg.com/ol@latest/dist/ol.js';  
+import TileLayer from 'https://unpkg.com/ol@latest/dist/ol.js';  
+import OSM from 'https://unpkg.com/ol@latest/dist/ol.js';
+import VectorLayer from 'https://unpkg.com/ol@latest/dist/ol.js';
+import VectorSource from 'https://unpkg.com/ol@latest/dist/ol.js';
+import { Draw } from 'https://unpkg.com/ol@latest/dist/ol.js';
+import { Point, LineString, Polygon } from 'https://unpkg.com/ol@latest/dist/ol.js';
+import { DragAndDrop } from 'https://unpkg.com/ol@latest/dist/ol.js';
+import GeoJSON from 'https://unpkg.com/ol@latest/dist/ol.js';
+import Overlay from 'https://unpkg.com/ol@latest/dist/ol.js';
 
 
 const rasterLayer = new TileLayer({
