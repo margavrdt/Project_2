@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="https://openlayers.org/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Using OpenLayers with Vite</title>
+    <title>Using OpenLayers with GitHub</title>
 	    <style>
       html, body {
         margin: 0;
@@ -24,14 +24,14 @@
         justify-content: center;
         align-items: center;
         border-bottom: 1px solid #ccc;
-        z-index: 1000; /* Ensures it's above the map */
+        z-index: 1000; 
       }
 
       /* Map container */
       #map {
         position: relative;
         width: 100%;
-        flex-grow: 1; /* Takes up remaining space */
+        flex-grow: 1; 
       }
 
       /* Coordinates Box: Upper-left inside the map */
@@ -45,7 +45,7 @@
         font-family: Arial, sans-serif;
         font-size: 14px;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-        z-index: 1000; /* Stays above the map */
+        z-index: 1000; 
       }
 	  
 	  .ol-popup {
@@ -86,9 +86,135 @@
       <div id="coordinates-display">No feature drawn yet.</div>
     </div>
 
-    <script type="module" src="./main.js"></script>
+    <!-- Load OpenLayers from CDN -->
+    <script src="https://unpkg.com/ol@latest/dist/ol.js"></script>
+    <!-- Your custom JavaScript -->
+    <script type="text/javascript">
+      // Create the OpenLayers Map
+      const rasterLayer = new ol.layer.Tile({
+        source: new ol.source.OSM(),
+      });
+
+      const vectorSource = new ol.source.Vector();
+      const vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+      });
+
+      const map = new ol.Map({
+        target: 'map',
+        layers: [rasterLayer, vectorLayer],
+        view: new ol.View({
+          center: [1468638.131296, 7499619.030200],
+          zoom: 12,
+        }),
+      });
+
+      // Handle drawing interactions
+      const typeSelect = document.getElementById('type');
+      const coordinatesDisplay = document.getElementById('coordinates-display');
+      let draw;
+
+      function addInteraction() {
+        if (draw) {
+          map.removeInteraction(draw);
+        }
+
+        const value = typeSelect.value;
+        if (value !== 'None') {
+          draw = new ol.interaction.Draw({
+            source: vectorSource,
+            type: value,
+          });
+
+          draw.on('drawend', function (event) {
+            const feature = event.feature;
+            const geometry = feature.getGeometry();
+
+            let coordinatesText = '';
+            if (geometry instanceof ol.geom.Point) {
+              const coords = geometry.getCoordinates();
+              coordinatesText = `Punto: ${coords[0].toFixed(2)}, ${coords[1].toFixed(2)}`;
+            } else if (geometry instanceof ol.geom.LineString) {
+              const coords = geometry.getCoordinates();
+              coordinatesText = 'Línea: ' + coords.map(coord => `${coord[0].toFixed(2)}, ${coord[1].toFixed(2)}`).join(' | ');
+            } else if (geometry instanceof ol.geom.Polygon) {
+              const coords = geometry.getCoordinates()[0];
+              coordinatesText = 'Polígono: ' + coords.map(coord => `${coord[0].toFixed(2)}, ${coord[1].toFixed(2)}`).join(' | ');
+            }
+
+            coordinatesDisplay.innerHTML = coordinatesText;
+          });
+
+          map.addInteraction(draw);
+        }
+      }
+
+      typeSelect.onchange = addInteraction;
+      addInteraction();
+
+      // Handle Drag and Drop for GeoJSON
+      const dragAndDropInteraction = new ol.interaction.DragAndDrop({
+        formatConstructors: [ol.format.GeoJSON],
+      });
+
+      dragAndDropInteraction.on('addfeatures', function (event) {
+        const geojsonSource = new ol.source.Vector({
+          features: event.features,
+        });
+
+        const geojsonLayer = new ol.layer.Vector({
+          source: geojsonSource,
+        });
+
+        map.addLayer(geojsonLayer);
+        map.getView().fit(geojsonSource.getExtent(), { duration: 1000 });
+
+        enablePopup();
+      });
+
+      map.addInteraction(dragAndDropInteraction);
+
+      // Popup for feature information
+      const popupContainer = document.createElement('div');
+      popupContainer.className = 'ol-popup';
+
+      document.body.appendChild(popupContainer);
+
+      const popupOverlay = new ol.Overlay({
+        element: popupContainer,
+        positioning: 'bottom-center',
+        stopEvent: false,
+      });
+
+      map.addOverlay(popupOverlay);
+
+      function enablePopup() {
+        map.on('click', function (evt) {
+          const feature = map.forEachFeatureAtPixel(evt.pixel, function (feat) {
+            return feat;
+          });
+
+          if (feature) {
+            const properties = feature.getProperties();
+            let content = '<b>Información del elemento:</b><br>';
+            Object.keys(properties).forEach(key => {
+              if (key !== 'geometry') {
+                content += `<b>${key}:</b> ${properties[key]}<br>`;
+              }
+            });
+
+            popupContainer.innerHTML = content;
+            popupOverlay.setPosition(evt.coordinate);
+            popupContainer.style.display = 'block';
+          } else {
+            popupContainer.style.display = 'none';
+          }
+        });
+      }
+
+      enablePopup();
+    </script>
 
   </body>
 </html>
-	
 
