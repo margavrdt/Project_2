@@ -1,6 +1,5 @@
-import './style.css';  
-import { Map, View } from 'https://unpkg.com/ol@latest/dist/ol.js';  
-import TileLayer from 'https://unpkg.com/ol@latest/dist/ol.js';  
+import { Map, View } from 'https://unpkg.com/ol@latest/dist/ol.js';
+import TileLayer from 'https://unpkg.com/ol@latest/dist/ol.js';
 import OSM from 'https://unpkg.com/ol@latest/dist/ol.js';
 import VectorLayer from 'https://unpkg.com/ol@latest/dist/ol.js';
 import VectorSource from 'https://unpkg.com/ol@latest/dist/ol.js';
