@@ -1,11 +1,4 @@
-import Map from 'https://unpkg.com/ol@latest/dist/ol/Map.js';
-import View from 'https://unpkg.com/ol@latest/dist/ol/View.js';
-import TileLayer from 'https://unpkg.com/ol@latest/dist/ol/layer/Tile.js';
-import OSM from 'https://unpkg.com/ol@latest/dist/ol/source/OSM.js';
-import VectorLayer from 'https://unpkg.com/ol@latest/dist/ol/layer/Vector.js';
-import VectorSource from 'https://unpkg.com/ol@latest/dist/ol/source/Vector.js';
-import { Draw } from 'https://unpkg.com/ol@latest/dist/ol/interaction.js';
-
+import * as ol from 'https://cdn.jsdelivr.net/npm/ol@latest/dist/ol.js';
 const rasterLayer = new TileLayer({
   source: new OSM(),
 });
