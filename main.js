@@ -1,14 +1,12 @@
-import { Map, View } from 'https://unpkg.com/ol@latest/dist/ol.js';
-import TileLayer from 'https://unpkg.com/ol@latest/dist/ol.js';
-import OSM from 'https://unpkg.com/ol@latest/dist/ol.js';
-import VectorLayer from 'https://unpkg.com/ol@latest/dist/ol.js';
-import VectorSource from 'https://unpkg.com/ol@latest/dist/ol.js';
-import { Draw } from 'https://unpkg.com/ol@latest/dist/ol.js';
-import { Point, LineString, Polygon } from 'https://unpkg.com/ol@latest/dist/ol.js';
-import { DragAndDrop } from 'https://unpkg.com/ol@latest/dist/ol.js';
-import GeoJSON from 'https://unpkg.com/ol@latest/dist/ol.js';
-import Overlay from 'https://unpkg.com/ol@latest/dist/ol.js';
-
+import Map from 'https://cdn.jsdelivr.net/npm/ol@latest/dist/ol/Map.js';
+import View from 'https://cdn.jsdelivr.net/npm/ol@latest/dist/ol/View.js';
+import TileLayer from 'https://cdn.jsdelivr.net/npm/ol@latest/dist/ol/layer/Tile.js';
+import OSM from 'https://cdn.jsdelivr.net/npm/ol@latest/dist/ol/source/OSM.js';
+import VectorLayer from 'https://cdn.jsdelivr.net/npm/ol@latest/dist/ol/layer/Vector.js';
+import VectorSource from 'https://cdn.jsdelivr.net/npm/ol@latest/dist/ol/source/Vector.js';
+import { Draw } from 'https://cdn.jsdelivr.net/npm/ol@latest/dist/ol/interaction/Draw.js';
+import { Point, LineString, Polygon } from 'https://cdn.jsdelivr.net/npm/ol@latest/dist/ol/geom.js';
+import Overlay from 'https://cdn.jsdelivr.net/npm/ol@latest/dist/ol/Overlay.js';
 
 const rasterLayer = new TileLayer({
   source: new OSM(),
