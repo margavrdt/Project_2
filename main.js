@@ -1,4 +1,14 @@
-import * as ol from 'https://cdn.jsdelivr.net/npm/ol@latest/dist/ol.js';
+import Map from 'https://cdn.jsdelivr.net/npm/ol/Map.js';
+import View from 'https://cdn.jsdelivr.net/npm/ol/View.js';
+import TileLayer from 'https://cdn.jsdelivr.net/npm/ol/layer/Tile.js';
+import OSM from 'https://cdn.jsdelivr.net/npm/ol/source/OSM.js';
+import VectorLayer from 'https://cdn.jsdelivr.net/npm/ol/layer/Vector.js';
+import VectorSource from 'https://cdn.jsdelivr.net/npm/ol/source/Vector.js';
+import { Draw } from 'https://cdn.jsdelivr.net/npm/ol/interaction.js';
+import { Point, LineString, Polygon } from 'https://cdn.jsdelivr.net/npm/ol/geom.js';
+import { DragAndDrop } from 'https://cdn.jsdelivr.net/npm/ol/interaction/DragAndDrop.js';
+import GeoJSON from 'https://cdn.jsdelivr.net/npm/ol/format/GeoJSON.js';
+import Overlay from 'https://cdn.jsdelivr.net/npm/ol/Overlay.js';
 const rasterLayer = new TileLayer({
   source: new OSM(),
 });
